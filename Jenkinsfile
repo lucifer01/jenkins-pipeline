@@ -8,7 +8,7 @@ pipeline {
     }
 
     triggers {
-        pollSCM('H/5 * * * *') // runs every 5 minutes when there are changes in the git repository (SCM)
+        pollSCM('H/5 * * * *') // checks on every 5 minutes, and builds only if there are changes in git repo
     }
 
     stages {
@@ -40,14 +40,14 @@ pipeline {
 
         stage('Approval') {
             steps {
-                echo "Waiting for manual approval (10s)..."
+                echo 'Waiting for manual approval (10s)...'
                 sleep 10
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment: ${env.PRODUCTION_ENVIRONMENT} environment"
+                echo "Deploy the code to the ${env.PRODUCTION_ENVIRONMENT} environment"
             }
         }
     }
