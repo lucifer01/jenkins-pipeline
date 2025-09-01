@@ -1,20 +1,20 @@
 pipeline {
     agent any
+
     environment {
         DIRECTORY_PATH = "${WORKSPACE}"
         TESTING_ENVIRONMENT = 'testing'
         PRODUCTION_ENVIRONMENT = 'sumit-adhikari'
     }
-    {
-        triggers: {
-            pollSCM('H/5 * * * *') // runs every 5 minutes when there are changes in the git repository (SCM)
-        }
+
+    triggers {
+        pollSCM('H/5 * * * *') // runs every 5 minutes when there are changes in the git repository (SCM)
     }
 
     stages {
         stage('Build') {
             steps {
-                echo "Fetch the source code from ${DIRECTORY_PATH}"
+                echo "Fetch the source code from ${env.DIRECTORY_PATH}"
                 echo 'Compile the code and generate any necessary artefacts'
             }
         }
@@ -34,19 +34,20 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploy the application to ${TESTING_ENVIRONMENT} environment"
+                echo "Deploy the application to ${env.TESTING_ENVIRONMENT} environment"
             }
         }
 
         stage('Approval') {
             steps {
+                echo "Waiting for manual approval (10s)..."
                 sleep 10
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment: ${PRODUCTION_ENVIRONMENT} environment"
+                echo "Deploy the code to the production environment: ${env.PRODUCTION_ENVIRONMENT} environment"
             }
         }
     }
