@@ -1,24 +1,15 @@
 pipeline {
     agent any
-
     environment {
         DIRECTORY_PATH = "${WORKSPACE}"
         TESTING_ENVIRONMENT = 'testing'
-        PRODUCTION_ENVIRONMENT = 'Grok'
+        PRODUCTION_ENVIRONMENT = 'sumit-adhikari'
     }
 
     stages {
-        stage('Print Directory Path') {
-            steps {
-                script {
-                    echo "Directory Path: ${DIRECTORY_PATH}"
-                }
-            }
-        }
-
         stage('Build') {
             steps {
-                echo 'Fetch the source code from the directory path specified by the environment variable'
+                echo "Fetch the source code from ${DIRECTORY_PATH}"
                 echo 'Compile the code and generate any necessary artefacts'
             }
         }
@@ -38,7 +29,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploy the application to a testing environment specified by the environment variable'
+                echo "Deploy the application to ${TESTING_ENVIRONMENT} environment"
             }
         }
 
