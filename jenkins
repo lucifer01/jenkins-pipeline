@@ -5,6 +5,11 @@ pipeline {
         TESTING_ENVIRONMENT = 'testing'
         PRODUCTION_ENVIRONMENT = 'sumit-adhikari'
     }
+    {
+        triggers: {
+            pollSCM('H/5 * * * *') // runs every 5 minutes when there are changes in the git repository (SCM)
+        }
+    }
 
     stages {
         stage('Build') {
