@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DIRECTORY_PATH = "${WORKSPACE}"
-        TESTING_ENVIRONMENT = 'testing'
-        PRODUCTION_ENVIRONMENT = 'sumit-adhikari'
+        TESTING_ENVIRONMENT = 'staging'
+        PRODUCTION_ENVIRONMENT = 'production'
     }
 
     triggers {
@@ -15,39 +15,45 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Fetch the source code from ${env.DIRECTORY_PATH}"
-                echo 'Compile the code and generate any necessary artefacts'
+                echo "Build the code using 'Webpack' to compile and package the code."
             }
         }
 
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'Unit tests'
-                echo 'Integration tests'
+                echo "Run unit tests using 'Jest' to ensure the code functions as expected."
+                echo "Run integration tests using 'Supertest' to verify interactions between components."
             }
         }
 
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps {
-                echo 'Check the quality of the code'
+                echo "Check the quality of the code using 'ESLint','SonarQube' to ensure it meets industry standards."
             }
         }
 
-        stage('Deploy') {
+        stage('Security Analysis') {
             steps {
-                echo "Deploy the application to ${env.TESTING_ENVIRONMENT} environment"
+                echo "Perform a security scan on the code using 'SonarQube' to identify any vulnerabilities."
             }
         }
 
-        stage('Approval') {
+        stage('Deploy to staging') {
             steps {
-                echo 'Waiting for manual approval (10s)...'
+                echo "Deploy the application to ${env.TESTING_ENVIRONMENT} server (AWS EC2 instance) using 'Jenkins'."
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Run integration tests on staging also using 'Cypress' to ensure the app functions as expected."
                 sleep 10
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the ${env.PRODUCTION_ENVIRONMENT} environment"
+                echo "Deploy the code to the ${env.PRODUCTION_ENVIRONMENT} server (AWS EC2 instance) using 'Jenkins'."
             }
         }
     }
