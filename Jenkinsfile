@@ -8,7 +8,7 @@ pipeline {
     }
 
     triggers {
-        pollSCM('H/1 * * * *') // checks on every 1 minute, and builds only if there are changes in git repo
+        pollSCM('H/2 * * * *') // checks on every 2 minute, and builds only if there are changes in git repo
     }
 
     stages {
