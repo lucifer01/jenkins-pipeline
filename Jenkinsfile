@@ -46,7 +46,7 @@ pipeline {
 
         stage('Integration Tests on Staging') {
             steps {
-                echo "Run integration test on staging also using 'Cypress' to ensure the app functions as expected."
+                echo "Run integration tests on staging also using 'Cypress' to ensure the app functions as expected."
                 sleep 10
             }
         }
