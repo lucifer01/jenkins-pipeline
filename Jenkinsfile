@@ -21,7 +21,7 @@ pipeline {
 
         stage('Unit and Integration Tests') {
             steps {
-                echo "Run unit tests using 'Jest' to ensure the code functions as expected."
+                echo "Run unit test using 'Jest' to ensure the code functions as expected."
                 echo "Run integration tests using 'Supertest' to verify interactions between components."
             }
         }
